@@ -1,0 +1,179 @@
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <div class="fadeIn first">
+      <h2>Registration</h2>
+    </div>
+    <form #registrationForm="ngForm">
+      <div>
+        <input
+          type="text"
+          class="fadeIn second"
+          name="firstname"
+          id="firstname"
+          [(ngModel)]="registrationData.firstname"
+          #firstname="ngModel"
+          placeholder="Firstname"
+          required
+        />
+        <span
+          class="validation-message"
+          style="text-align: center; display:block;"
+          *ngIf="firstname.errors?.required && firstname.touched"
+          class="text-danger"
+        >Firstname is required</span
+        >
+      </div>
+      <div>
+        <input
+          type="text"
+          class="fadeIn second"
+          name="surname"
+          id="surname"
+          [(ngModel)]="registrationData.surname"
+          #surname="ngModel"
+          placeholder="Surname"
+          required
+        />
+        <span
+          class="validation-message"
+          style="text-align: center; display:block;"
+          *ngIf="surname.errors?.required && surname.touched"
+          class="text-danger"
+        >Surname is required</span
+        >
+      </div>
+      <div>
+        <input
+          type="text"
+          class="fadeIn second"
+          name="city"
+          id="city"
+          [(ngModel)]="registrationData.city"
+          #city="ngModel"
+          placeholder="City"
+          required
+        />
+        <span
+          class="validation-message"
+          style="text-align: center; display:block;"
+          *ngIf="city.errors?.required && city.touched"
+          class="text-danger"
+        >City is required</span
+        >
+      </div>
+      <div>
+        <input
+          type="text"
+          class="fadeIn second"
+          name="country"
+          id="country"
+          [(ngModel)]="registrationData.country"
+          #country="ngModel"
+          placeholder="Country"
+          required
+        />
+        <span
+          class="validation-message"
+          style="text-align: center; display:block;"
+          *ngIf="country.errors?.required && country.touched"
+          class="text-danger"
+        >Country is required</span
+        >
+      </div>
+      <div>
+        <input
+          type="text"
+          class="fadeIn second"
+          name="title"
+          id="title"
+          [(ngModel)]="registrationData.title"
+          #title="ngModel"
+          placeholder="Title"
+        />
+      </div>
+      <div>
+        <input
+          type="text"
+          class="fadeIn second"
+          name="email"
+          id="email"
+          [(ngModel)]="registrationData.email"
+          #email="ngModel"
+          placeholder="Email"
+          required
+        />
+        <span
+          class="validation-message"
+          style="text-align: center; display:block;"
+          *ngIf="email.errors?.required && email.touched"
+          class="text-danger"
+        >Email is required</span
+        >
+      </div>
+      <div>
+        <input
+          type="text"
+          class="fadeIn second"
+          name="username"
+          id="username"
+          [(ngModel)]="registrationData.username"
+          #username="ngModel"
+          placeholder="Username"
+          required
+        />
+        <span
+          class="validation-message"
+          style="text-align: center; display:block;"
+          *ngIf="username.errors?.required && username.touched"
+          class="text-danger"
+        >Username is required</span
+        >
+      </div>
+      <div>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="fadeIn third"
+          [(ngModel)]="registrationData.password"
+          #password="ngModel"
+          placeholder="Password"
+          required
+        />
+        <span
+          class="validation-message"
+          style="text-align: center; display:block;"
+          *ngIf="password.errors?.required && password.touched"
+          class="text-danger"
+        >Password is required</span
+        >
+      </div>
+
+      <div class="fadeIn">
+        <mat-form-field>
+          <mat-label> Scientific Area: </mat-label>
+          <mat-select #scientifiArea="ngModel" [(ngModel)]="registrationData.scientificAreasIds" [ngModelOptions]="{standalone: true}" multiple>
+            <mat-option *ngFor="let sa of scientificAreaData.scientificAreas" [value]="sa.scientificAreaId">{{sa.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-checkbox labelPosition="before" [(ngModel)]="registrationData.reviewerCheck" [ngModelOptions]="{standalone: true}">Reviewer</mat-checkbox>
+      </div>
+
+      <button
+        [disabled]="!registrationForm.valid"
+        type="submit"
+        class="fadeIn fourth"
+        value="Log in"
+        (click)="onRegistration(registrationData)"
+      >
+        Registration
+      </button>
+
+
+
+    </form>
+  </div>
+</div>

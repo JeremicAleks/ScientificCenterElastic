@@ -1,0 +1,217 @@
+<div id="user-profile-2" class="user-profile cMargin">
+  <div class="tabbable">
+    <ul class="nav nav-tabs padding-18">
+      <li class="active">
+        <a data-toggle="tab" href="#home">
+          <i class="green ace-icon fa fa-user bigger-120"></i>
+          Profile
+        </a>
+      </li>
+
+      <li *ngIf="authService.isLeadEditor()">
+        <a data-toggle="tab" href="#feed">
+          <i class="orange ace-icon fa fa-rss bigger-120"></i>
+          Article for activation
+        </a>
+      </li>
+      <li>
+        <a data-toggle="tab" href="#pictures">
+          <i class="pink ace-icon fa fa-picture-o bigger-120"></i>
+          Magazines
+        </a>
+      </li>
+    </ul>
+
+    <div class="tab-content no-border padding-24">
+      <div id="home" class="tab-pane in active">
+        <div class="row">
+          <div class="col-xs-12 col-sm-3 center">
+							<span class="profile-picture">
+								<img class="editable img-responsive" alt=" Avatar" id="avatar2" src="http://bootdey.com/img/Content/avatar/avatar6.png">
+							</span>
+
+            <div class="space space-4"></div>
+
+            <a href="#" class="btn btn-sm btn-block btn-success">
+              <i class="ace-icon fa fa-plus-circle bigger-120"></i>
+              <span class="bigger-110">Add as a friend</span>
+            </a>
+
+            <a href="#" class="btn btn-sm btn-block btn-primary">
+              <i class="ace-icon fa fa-envelope-o bigger-110"></i>
+              <span class="bigger-110">Send a message</span>
+            </a>
+          </div><!-- /.col -->
+
+
+          <div class="col-xs-12 col-sm-9">
+            <h4 class="blue">
+              <button *ngIf="authService.isEditor()" class="btn btn-primary" (click)="addMagazine()"> Add Magazine</button>
+              <button *ngIf="authService.isAuthor()" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Add Article</button>
+              <span class="middle">{{user.firstname}} {{user.surname}}</span>
+            </h4>
+
+            <div class="profile-user-info">
+              <div class="profile-info-row">
+                <div class="profile-info-name"> Username </div>
+
+                <div class="profile-info-value">
+                  <span>{{user.username}}</span>
+                </div>
+              </div>
+
+              <div class="profile-info-row">
+                <div class="profile-info-name"> Email </div>
+
+                <div class="profile-info-value">
+                  <i class="fa fa-envelope bigger-110"></i>
+                  <span>{{user.email}}</span>
+                </div>
+              </div>
+
+              <div class="profile-info-row">
+                <div class="profile-info-name"> Age </div>
+
+                <div class="profile-info-value">
+                  <span>38</span>
+                </div>
+              </div>
+
+              <div class="profile-info-row">
+                <div class="profile-info-name"> Joined </div>
+
+                <div class="profile-info-value">
+                  <span>2010/06/20</span>
+                </div>
+              </div>
+
+              <div class="profile-info-row">
+                <div class="profile-info-name"> Last Online </div>
+
+                <div class="profile-info-value">
+                  <span>3 hours ago</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="hr hr-8 dotted"></div>
+
+            <div class="profile-user-info">
+              <div class="profile-info-row">
+                <div class="profile-info-name"> Website </div>
+
+                <div class="profile-info-value">
+                  <a href="#" target="_blank">www.ScientificCenter.com</a>
+                </div>
+              </div>
+
+              <div class="profile-info-row">
+                <div class="profile-info-name">
+                  <i class="middle ace-icon fa fa-facebook-square bigger-150 blue"></i>
+                </div>
+
+                <div class="profile-info-value">
+                  <a href="#">Find me on Facebook</a>
+                </div>
+              </div>
+
+              <div class="profile-info-row">
+                <div class="profile-info-name">
+                  <i class="middle ace-icon fa fa-twitter-square bigger-150 light-blue"></i>
+                </div>
+
+                <div class="profile-info-value">
+                  <a href="#">Follow me on Twitter</a>
+                </div>
+              </div>
+            </div>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+
+        <div class="space-20"></div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <div class="widget-box transparent">
+              <div class="widget-header widget-header-small">
+                <h3 class="widget-title smaller">
+
+
+                </h3>
+              </div>
+
+              <div class="widget-body">
+                <div class="widget-main">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /#home -->
+
+      <div *ngIf="authService.isLeadEditor()" id="feed" class="tab-pane">
+        <table class="table" style="margin-top: 60px">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Keywords</th>
+            <th scope="col">Author</th>
+            <th scope="col">Scientific Area</th>
+            <th scope="col">Download</th>
+            <th scope="col">Choose reviewer</th>
+            <th scope="col">Activate</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let article of articlesUnactive.articleDTOS ; let i =index " >
+            <th scope="row">{{i+1}}</th>
+            <td>{{article.title}}</td>
+            <td>{{article.keywords}}</td>
+            <td>{{article.author.username}}</td>
+            <td>{{article.scientificArea.name}}</td>
+            <td><button class="btn btn-primary" title="View" data-toggle="modal" data-target="#exampleModalCenter" (click)="preuzmiPDF(article)"><i class="glyphicon glyphicon-pencil" ></i><span class="hidden-xs">Download</span></button></td>
+            <td><button *ngIf="article.active === false" class="btn btn-danger" title="Delete" (click)="ChooseReviewer(article)"><i class="glyphicon glyphicon-trash" ></i><span class="hidden-xs">Choose reviewers</span> </button></td>
+            <td><button *ngIf="article.active === false" class="btn btn-primary" title="Delete" (click)="activateArticle(article)"><i class="glyphicon glyphicon-trash" ></i><span class="hidden-xs">Activate</span> </button></td>
+          </tr>
+
+        </table>
+      </div><!-- /#feed -->
+
+      <div id="pictures" class="tab-pane">
+
+      </div><!-- /#pictures -->
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Choose magazine</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #ChooseMagazine = "ngForm">
+          <div>
+            <select name="chooseMagazine" [(ngModel)]="magazine">
+              <option *ngFor="let val of magazineData.magazines" [ngValue]="val">
+                {{val.name}}
+              </option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addArticle(magazine)">Add article</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

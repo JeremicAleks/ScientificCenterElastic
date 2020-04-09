@@ -1,0 +1,63 @@
+<div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+  <div class="wrapper wrapper--w790">
+    <div class="card card-5">
+      <div class="card-heading">
+        <h2 class="title">Adding Magazine</h2>
+      </div>
+      <div class="card-body">
+        <form #addMagazineForm="ngForm">
+          <div class="form-row m-b-55">
+            <div class="name">Name</div>
+            <div class="value">
+              <div class="input-group">
+                <input #name="ngModel" class="input--style-5" type="text" name="name" id="name" [(ngModel)]="addMagazineData.name">
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="name">ISSN</div>
+            <div class="value">
+              <div class="input-group">
+                <input class="input--style-5" type="text" name="issn" [(ngModel)]="addMagazineData.iSSN">
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="name">Magazine type</div>
+            <div class="fadeIn">
+              <mat-form-field>
+                <mat-label>Magazine type</mat-label>
+                <mat-select #magazineType="ngModel" [(ngModel)]="addMagazineData.magazineType" [ngModelOptions]="{standalone: true}">
+                  <mat-option value="PRETPLATA">PRETPLATA</mat-option>
+                  <mat-option value="OPEN_ACCESS">OPEN_ACCESS</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="name">Price</div>
+            <div class="value">
+              <div class="input-group">
+                <input class="input--style-5" type="number" name="cena" [(ngModel)]="addMagazineData.price" >
+              </div>
+            </div>
+          </div>
+          <div class="form-row m-b-55 align-content-center">
+            <div class="name">Scientific Area:</div>
+            <div class="fadeIn">
+              <mat-form-field>
+                <mat-label> Scientific Area: </mat-label>
+                <mat-select #naucnaOblast="ngModel" [(ngModel)]="addMagazineData.scientificAreaIds" [ngModelOptions]="{standalone: true}" multiple>
+                  <mat-option *ngFor="let sa of scientifAreaData.scientificAreas" [value]="sa.scientificAreaId">{{sa.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div>
+            <button [disabled]="!addMagazineForm.valid" class="btn btn--radius-2 btn--red" type="submit" (click)="addData(addMagazineData)">Next</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

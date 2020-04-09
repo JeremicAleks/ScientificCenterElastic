@@ -1,0 +1,54 @@
+<div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+  <div class="wrapper wrapper--w790">
+    <div class="card card-5">
+      <div class="card-heading">
+        <h2 class="title">Dodavanje casopisa</h2>
+      </div>
+      <div class="card-body">
+        <form #choseReviewers="ngForm">
+          <div class="form-row m-b-55">
+            <div class="name">Naslov</div>
+            <div class="value">
+              <div class="input-group">
+                <input #name="ngModel" class="input--style-5" type="text" name="name" id="name" [(ngModel)]="article.title" disabled>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row m-b-55 align-content-center">
+            <div class="name">Reviewers</div>
+            <div class="fadeIn">
+              <mat-form-field>
+                <mat-label> Reviewers: </mat-label>
+                <mat-select #scientificAreas="ngModel" [(ngModel)]="addReviewersData.reviewrsId" [ngModelOptions]="{standalone: true}" multiple>
+                  <mat-option *ngFor="let rev of reviewers.users" [value]="rev.userId">{{rev.firstname}} {{rev.surname}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-row m-b-55 align-content-center" *ngIf="moreLikeThisData.bookTitle.length !== 0">
+            <div class="name">Article like this:</div>
+            <div class="fadeIn">
+              <mat-form-field>
+                <mat-label> Titles: </mat-label>
+                <mat-select  >
+                  <mat-option *ngFor="let article of moreLikeThisData.bookTitle" [value]="article">{{article}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div>
+            <button class="btn btn--radius-2 btn--blue" style="margin-right: 10px" type="submit" (click)="moreLikeThis()">More Like This</button>
+            <button class="btn btn--radius-2 btn--blue" style="margin-right: 10px" type="submit" (click)="geoprostorna()">Geoprostorna</button>
+            <button class="btn btn--radius-2 btn--blue" style="margin-top: 10px; margin-right: 10px" type="submit" (click)="naucnaOblastFilter(addReviewersData)">Naucna Oblast Filter</button>
+            <button class="btn btn--radius-2 btn--red" style="margin-top: 10px;" type="submit" (click)="ukloniFilter()">Ukloni Filter</button>
+          </div>
+
+          <div style="margin-top: 20px">
+            <button class="btn btn--radius-2 btn--green" type="submit" (click)="izaberi(addReviewersData)">Izaberi</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

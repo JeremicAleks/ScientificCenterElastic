@@ -1,0 +1,59 @@
+<div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+  <div class="wrapper wrapper--w790">
+    <div class="card card-5">
+      <div class="card-heading">
+        <h2 class="title">Adding article</h2>
+      </div>
+      <div class="card-body">
+        <form #addArticleForm="ngForm">
+          <div class="form-row m-b-55">
+            <div class="name">Title</div>
+            <div class="value">
+              <div class="input-group">
+                <input #title="ngModel" class="input--style-5" type="text" name="title" id="title" [(ngModel)]="addArticleData.title">
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="name">Keywords</div>
+            <div class="value">
+              <div class="input-group">
+                <input class="input--style-5" type="text" name="keywords" [(ngModel)]="addArticleData.keywords">
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="name">Abstract</div>
+            <div class="value">
+              <div class="input-group">
+                <input class="input--style-5" type="text" name="articleAbstract" [(ngModel)]="addArticleData.articleAbstract">
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="name">Pdf</div>
+            <div class="value">
+              <div class="input-group">
+                <input class="input--style-5" type="file" name="pdf" (change)="onFileSelect($event.target.files)">
+              </div>
+            </div>
+          </div>
+          <div class="form-row m-b-55 align-content-center">
+            <div class="name">Scientific Area</div>
+            <div class="fadeIn">
+              <mat-form-field>
+                <mat-label> Scientific Area: </mat-label>
+                <mat-select [(ngModel)]="addArticleData.scientificAreaId" [ngModelOptions] = "{standalone:true}">
+                  <mat-option *ngFor="let sa of magazine.scientificAreas" [value]="sa.scientificAreaId">{{sa.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div>
+            <button [disabled]="!addArticleForm.valid" class="btn btn--radius-2 btn--red" type="submit" (click)="addArticle(addArticleData)">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

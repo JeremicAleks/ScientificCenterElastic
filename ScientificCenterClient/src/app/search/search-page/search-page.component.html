@@ -1,0 +1,195 @@
+<div >
+  <!-- Page Content -->
+  <div class="container cMargin">
+
+    <div class="row">
+
+      <div class="col-lg-3">
+
+        <h3 class="my-4">Scientific Areas:</h3>
+        <div class="list-group">
+          <a *ngFor="let area of scientificAreaData.scientificAreas"  [routerLink]="" (click)="searchScientificAreas(area)" class="list-group-item">{{area.name}}</a>
+        </div>
+
+      </div>
+      <!-- /.col-lg-3 -->
+
+      <div class="col-lg-9">
+
+        <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+              <img class="d-block img-fluid" src="assets/slider/bookstore1.jpg" alt="First slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block img-fluid" src="assets/slider/bookstore2.jpg" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block img-fluid" src="assets/slider/bookstore3.jpg" alt="Third slide">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+
+        <div class="row pretagaBot">
+          <mat-tab-group>
+            <mat-tab label="Search">
+              <form>
+                <div >
+                  <input
+                    type="text"
+                    name="search"
+                    [(ngModel)]="searchData.value"
+                    class="form-control pretagaBot"
+                    placeholder="Search value"
+                  />
+                </div>
+                <div>
+                  <mat-form-field>
+                    <mat-label> Search by: </mat-label>
+                    <mat-select #scientifiArea="ngModel" [(ngModel)]="searchData.field" [ngModelOptions]="{standalone: true}" >
+                      <mat-option value="magazineTitle">Magazine title</mat-option>
+                      <mat-option value="title">Article title</mat-option>
+                      <mat-option value="author">Author</mat-option>
+                      <mat-option value="keywords">Keywords</mat-option>
+                      <mat-option value="text">Text</mat-option>
+                      <mat-option value="scientificArea">Scientific areas</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <button  class="btn btn--radius-2 btn-primary pretagaBot" type="submit" (click)="search(searchData)">Search</button>
+                </div>
+              </form>
+            </mat-tab>
+            <mat-tab label="Boolean Query">
+              <form #f="ngForm" (ngSubmit)="booleanQuery(f.value, f,booleaQueryData)" ngNativeValidate >
+                <div>
+                  <input
+                    type="text"
+                    name="magazineTitle"
+                    [(ngModel)]="booleaQueryData.magazineTitle"
+                    class="form-control pretagaBot"
+                    placeholder="Magazine Title"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    name="title"
+                    [(ngModel)]="booleaQueryData.title"
+                    class="form-control pretagaBot"
+                    placeholder="Article title"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    name="author"
+                    [(ngModel)]="booleaQueryData.author"
+                    class="form-control pretagaBot"
+                    placeholder="Author"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    name="keywords"
+                    [(ngModel)]="booleaQueryData.keywords"
+                    class="form-control pretagaBot"
+                    placeholder="Keywords"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    name="text"
+                    [(ngModel)]="booleaQueryData.text"
+                    class="form-control pretagaBot"
+                    placeholder="Text"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    name="scientificArea"
+                    [(ngModel)]="booleaQueryData.scientificAreas"
+                    class="form-control pretagaBot"
+                    placeholder="Scientific areas"
+                  />
+                </div>
+                <div>
+                  <mat-form-field>
+                    <mat-label> Search operator: </mat-label>
+                    <mat-select #oper="ngModel" [(ngModel)]="booleaQueryData.operator" [ngModelOptions]="{standalone: true}" >
+                      <mat-option value="AND">AND</mat-option>
+                      <mat-option value="OR">OR</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <button  class="btn btn--radius-2 btn-primary pretagaBot" type="submit">Search</button>
+                </div>
+              </form>
+            </mat-tab>
+          </mat-tab-group>
+
+        </div>
+
+        <div class="row">
+          <ng-container *ngFor="let rd of resultData">
+            <ng-container *ngIf="rd.status==='active'">
+              <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                  <a href="#"><img class="card-img-top" src="assets/book.png" width="60" height="150" alt="" /></a>
+                  <div class="card-body">
+                    <h3 class="card-title">
+                      <span style="color:#17a2b8;">{{ rd.title }}</span>
+                    </h3>
+                    <h6>ScientificArea:{{ rd.scientificArea}}</h6>
+                    <h6>Magazine:{{ rd.magazineTitle}}</h6>
+                    <h4>Apstrakt: {{ rd.articleAbstract }}</h4>
+                    <h6>Keywords: {{ rd.keywords }}</h6>
+                    <h6>Author: {{ rd.author }}</h6>
+                    <h6>Higlights: <div [innerHTML]="rd.highlight.substr(1,rd.highlight.length-2) | noSanitize"></div></h6>
+                  </div>
+                  <div class="card-footer">
+                    <button *ngIf="rd.magazineType==='PRETPLATA'" type="button" class="btn btn-danger btn-sm" (click)="onAddToCart(rd)">
+                      Add to cart
+                    </button>
+                    <button *ngIf="rd.magazineType==='OPEN_ACCESS'" type="button"
+                            class="text-light btn btn-warning btn-sm" (click)="downloadPDF(rd)">
+                      Download
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+        <!-- /.row -->
+
+      </div>
+      <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+
+
+</div>

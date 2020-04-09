@@ -1,0 +1,47 @@
+<div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+  <div class="wrapper wrapper--w790">
+    <div class="card card-5">
+      <div class="card-heading">
+        <h2 class="title">Dodavanje casopisa</h2>
+      </div>
+      <div class="card-body">
+        <form #addMagazineForm="ngForm">
+          <div class="form-row m-b-55">
+            <div class="name">Name</div>
+            <div class="value">
+              <div class="input-group">
+                <input #name="ngModel" class="input--style-5" type="text" name="name" id="name" [(ngModel)]="magazine.name" disabled>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row m-b-55 align-content-center">
+            <div class="name">Reviewer</div>
+            <div class="fadeIn">
+              <mat-form-field>
+                <mat-label> Reviewer: </mat-label>
+                <mat-select #revie="ngModel" [(ngModel)]="addMagazineUsers.reviewersIds" [ngModelOptions]="{standalone: true}" multiple>
+                  <mat-option *ngFor="let rev of reviewer.users" [value]="rev.userId">{{rev.firstname}} {{rev.surname}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-row m-b-55 align-content-center">
+            <div class="name">Editors</div>
+            <div class="fadeIn">
+              <mat-form-field>
+                <mat-label> Editors: </mat-label>
+                <mat-select #edit="ngModel" [(ngModel)]="addMagazineUsers.editorsIds" [ngModelOptions]="{standalone: true}" multiple>
+                  <mat-option *ngFor="let edi of editors.users" [value]="edi.userId">{{edi.firstname}} {{edi.surname}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div>
+            <button  class="btn btn--radius-2 btn--red" type="submit" (click)="addMagazine(addMagazineUsers)">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
